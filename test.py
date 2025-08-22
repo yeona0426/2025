@@ -24,29 +24,29 @@ medicine_data = {
     }
 }
 
-st.title("💊 증상별 소화제 추천 앱")
-st.write("아래 증상 중 하나를 선택하세요 👇")
-
-# 증상별 이미지 (샘플 URL, 원하는 이미지로 교체 가능)
+# 증상별 이미지 URL
 image_urls = {
-    "속쓰림 / 위산 역류": "https://cdn-icons-png.flaticon.com/512/2927/2927347.png",
-    "더부룩함 / 소화불량": "https://cdn-icons-png.flaticon.com/512/2927/2927340.png",
-    "과식 후 체함": "https://cdn-icons-png.flaticon.com/512/3081/3081559.png",
-    "가스참 / 트림 / 방귀 과다": "https://cdn-icons-png.flaticon.com/512/3081/3081571.png",
-    "메스꺼움 / 구역질": "https://cdn-icons-png.flaticon.com/512/2927/2927345.png"
+    "속쓰림 / 위산 역류": "https://cdn-icons-png.flaticon.com/512/1143/11430828.png",
+    "더부룩함 / 소화불량": "https://cdn-icons-png.flaticon.com/512/1143/11430843.png",
+    "과식 후 체함": "https://cdn-icons-png.flaticon.com/512/995/9958185.png",
+    "가스참 / 트림 / 방귀 과다": "https://cdn-icons-png.flaticon.com/512/993/9930189.png",
+    "메스꺼움 / 구역질": "https://cdn-icons-png.flaticon.com/512/1003/10039255.png"
 }
 
-# 한 줄에 5개 이미지 버튼 배치
-cols = st.columns(5)
+st.title("💊 증상별 소화제 추천 앱")
+st.write("아래 이미지 중 하나를 클릭하면 알맞은 약을 추천해드립니다.")
 
+# 한 줄에 이미지 5개 배치
+cols = st.columns(5)
 selected_symptom = None
+
 for idx, (symptom, url) in enumerate(image_urls.items()):
     with cols[idx]:
-        st.image(url, use_container_width=True)
-        if st.button(symptom):
+        st.image(url, caption=symptom, use_container_width=True)
+        if st.button(f"{symptom} 선택"):
             selected_symptom = symptom
 
-# 선택된 증상에 따른 결과 표시
+# 선택된 증상에 따른 약 추천
 if selected_symptom:
     st.subheader(f"🩺 선택한 증상: {selected_symptom}")
     st.write(f"**추천 성분**: {medicine_data[selected_symptom]['성분']}")
