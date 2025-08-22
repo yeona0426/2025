@@ -24,7 +24,7 @@ medicine_data = {
     }
 }
 
-# 증상별 이미지 URL
+# 실제 이미지 URL
 image_urls = {
     "속쓰림 / 위산 역류": "https://cdn-icons-png.flaticon.com/512/1143/11430828.png",
     "더부룩함 / 소화불량": "https://cdn-icons-png.flaticon.com/512/1143/11430843.png",
