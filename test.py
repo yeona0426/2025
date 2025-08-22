@@ -42,7 +42,7 @@ cols = st.columns(5)
 selected_symptom = None
 for idx, (symptom, url) in enumerate(image_urls.items()):
     with cols[idx]:
-        st.image(url, use_column_width=True)
+        st.image(url, use_container_width=True)
         if st.button(symptom):
             selected_symptom = symptom
 
