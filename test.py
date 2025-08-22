@@ -26,7 +26,7 @@ medicine_data = {
 
 # 실제 이미지 URL
 image_urls = {
-    "속쓰림 / 위산 역류": "https://postimg.cc/75czw8CW.png",
+    "속쓰림 / 위산 역류": "https://postimg.cc/75czw8CW",
     "더부룩함 / 소화불량": "https://cdn-icons-png.flaticon.com/512/1143/11430843.png",
     "과식 후 체함": "https://cdn-icons-png.flaticon.com/512/995/9958185.png",
     "가스참 / 트림 / 방귀 과다": "https://cdn-icons-png.flaticon.com/512/993/9930189.png",
