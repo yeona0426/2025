@@ -1,6 +1,6 @@
 import streamlit as st
 
-# 증상-약 데이터 (딕셔너리 형태)
+# 증상-약 데이터
 medicine_data = {
     "속쓰림 / 위산 역류": {
         "성분": "제산제 (알마게이트, 수산화마그네슘, 알루미늄 수산화물 등)",
@@ -24,19 +24,32 @@ medicine_data = {
     }
 }
 
-# 앱 제목
 st.title("💊 증상별 소화제 추천 앱")
+st.write("아래 증상 중 하나를 선택하세요 👇")
 
-st.write("증상을 선택하면, 알맞은 일반의약품 소화제를 추천해드립니다.")
+# 증상별 이미지 (샘플 URL, 원하는 이미지로 교체 가능)
+image_urls = {
+    "속쓰림 / 위산 역류": "https://cdn-icons-png.flaticon.com/512/2927/2927347.png",
+    "더부룩함 / 소화불량": "https://cdn-icons-png.flaticon.com/512/2927/2927340.png",
+    "과식 후 체함": "https://cdn-icons-png.flaticon.com/512/3081/3081559.png",
+    "가스참 / 트림 / 방귀 과다": "https://cdn-icons-png.flaticon.com/512/3081/3081571.png",
+    "메스꺼움 / 구역질": "https://cdn-icons-png.flaticon.com/512/2927/2927345.png"
+}
 
-# 증상 선택
-symptom = st.selectbox("증상을 선택하세요 👇", list(medicine_data.keys()))
+# 한 줄에 5개 이미지 버튼 배치
+cols = st.columns(5)
 
-# 선택한 증상에 따른 결과 표시
-if symptom:
-    st.subheader(f"🩺 선택한 증상: {symptom}")
-    st.write(f"**추천 성분**: {medicine_data[symptom]['성분']}")
+selected_symptom = None
+for idx, (symptom, url) in enumerate(image_urls.items()):
+    with cols[idx]:
+        st.image(url, use_column_width=True)
+        if st.button(symptom):
+            selected_symptom = symptom
+
+# 선택된 증상에 따른 결과 표시
+if selected_symptom:
+    st.subheader(f"🩺 선택한 증상: {selected_symptom}")
+    st.write(f"**추천 성분**: {medicine_data[selected_symptom]['성분']}")
     st.write("**추천 약품**:")
-    for med in medicine_data[symptom]['추천 약']:
+    for med in medicine_data[selected_symptom]['추천 약']:
         st.markdown(f"- {med}")
-
