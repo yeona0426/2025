@@ -50,7 +50,7 @@ selected_symptom = None
 
 for idx, (symptom, url) in enumerate(image_urls.items()):
     with cols[idx]:
-        st.image(url, caption=symptom, use_container_width=True)
+        st.image(url, use_container_width=True)  # caption 제거
         if st.button(f"{symptom}"):
             selected_symptom = symptom
 
