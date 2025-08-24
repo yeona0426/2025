@@ -42,18 +42,19 @@ image_urls = {
 # ------------------------------
 st.set_page_config(page_title="증상별 소화제 추천 앱", layout="wide")
 
-# 전체 배경 + 버튼 스타일
+# 전체 페이지 배경 & 버튼/카드 기본 스타일
 st.markdown("""
 <style>
 body {
-    background-color: #ECECEC;
+    background-color: #F5F0E1; /* 베이지 배경 */
 }
 div.stButton > button:first-child {
-    background-color: #F5F0E1;  /* 베이지 버튼 */
+    background-color: #BBDCE5;  /* 라이트블루 버튼 */
     color: #333333;
     font-weight: bold;
     border-radius: 12px;
     padding: 10px 20px;
+    margin-bottom: 10px;
 }
 </style>
 """, unsafe_allow_html=True)
@@ -66,7 +67,7 @@ st.markdown("""
 
 # ⚠️ 경고 문구
 st.markdown("""
-<div style='background-color:#BBDCE5; color:#333333; padding:15px; border-radius:10px; text-align:center;'>
+<div style='background-color:#D9EAF0; color:#333333; padding:15px; border-radius:10px; text-align:center;'>
 ⚠️ 주의: 이 앱은 일반적인 정보 제공용입니다. 약 복용 전 반드시 약사 또는 의사와 상담하세요.
 </div>
 """, unsafe_allow_html=True)
@@ -80,19 +81,21 @@ for idx, (symptom, url) in enumerate(image_urls.items()):
         if st.button(f"{symptom}"):
             selected_symptom = symptom
 
-# 약 추천 (가로 2열, 이모티콘 포함)
+# 약 추천 (가로 2열, 카드 파스텔톤 라이트블루)
 if selected_symptom:
     st.subheader(f"🩺 선택한 증상: {selected_symptom}")
     st.write("**추천 약품:**")
     cols = st.columns(2)
+    pastel_colors = ["#BBDCE5", "#D0E6F0"]  # 카드 색상 파스텔톤 2가지
     for idx, med in enumerate(medicine_data[selected_symptom]):
+        color = pastel_colors[idx % len(pastel_colors)]
         with cols[idx]:
             st.markdown(f"""
                 <div style="
-                    background-color: #BBDCE5;
+                    background-color: {color};
                     padding: 20px;
                     border-radius: 15px;
-                    box-shadow: 4px 4px 12px #F5F0E1;
+                    box-shadow: 4px 4px 12px #ECEEDF;
                     text-align: center;
                     margin-bottom: 15px;
                     color: #333333;
