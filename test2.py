@@ -54,11 +54,11 @@ selected_symptom = None
 
 for idx, (symptom, url) in enumerate(image_urls.items()):
     with cols[idx]:
-        st.image(url, use_container_width=True)  # 캡션 제거
+        st.image(url, use_container_width=True)
         if st.button(f"{symptom}"):
             selected_symptom = symptom
 
-# 선택된 증상에 따른 약 추천 (가로 2열)
+# 선택된 증상에 따른 약 추천 (가로 2열, 카드 스타일)
 if selected_symptom:
     st.subheader(f"🩺 선택한 증상: {selected_symptom}")
     st.write("**추천 약품:**")
@@ -66,7 +66,19 @@ if selected_symptom:
     cols = st.columns(2)
     for idx, med in enumerate(medicine_data[selected_symptom]):
         with cols[idx]:
-            st.markdown(f"### {med['이름']}")
-            st.markdown(f"- **복용법:** {med['복용법']}")
-            st.markdown(f"- **효능:** {med['효능']}")
-            st.markdown(f"- **주의사항:** {med['주의사항']}")
+            # 카드 스타일 HTML/CSS
+            st.markdown(f"""
+                <div style="
+                    background: linear-gradient(135deg, #FFDEE9, #B5FFFC);
+                    padding: 20px;
+                    border-radius: 15px;
+                    box-shadow: 4px 4px 15px rgba(0,0,0,0.2);
+                    text-align: center;
+                    margin-bottom: 15px;
+                ">
+                    <h3 style="color:#333333;">{med['이름']}</h3>
+                    <p><strong>복용법:</strong> {med['복용법']}</p>
+                    <p><strong>효능:</strong> {med['효능']}</p>
+                    <p><strong>주의사항:</strong> {med['주의사항']}</p>
+                </div>
+            """, unsafe_allow_html=True)
