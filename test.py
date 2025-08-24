@@ -33,6 +33,7 @@ image_urls = {
     "메스꺼움 / 구역질": "https://drive.google.com/uc?export=view&id=1PjI8pPuDTnbnhQhQVgSIM9p8lhp3IhUo"
 }
 
+
 # 앱 제목
 st.title("💊 증상별 소화제 추천 앱")
 st.write("아래 증상 이미지를 클릭하면 알맞은 약을 추천해드립니다.")
