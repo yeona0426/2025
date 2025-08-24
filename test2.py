@@ -45,9 +45,11 @@ st.set_page_config(page_title="증상별 소화제 추천 앱", layout="wide")
 # 전체 페이지 배경 & 버튼/카드 스타일
 st.markdown("""
 <style>
-html, body {
-    background-color: #F5F0E1; /* 전체 페이지 베이지 */
+html, body, .stApp {
+    background-color: #F5F0E1;  /* 전체 페이지 베이지 */
 }
+</style>
+""", unsafe_allow_html=True)
 div.stButton > button:first-child {
     background-color: #BBDCE5;  /* 카드 & 버튼 라이트블루 */
     color: #333333;
