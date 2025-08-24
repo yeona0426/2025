@@ -80,7 +80,7 @@ for idx, (symptom, url) in enumerate(image_urls.items()):
         if st.button(f"{symptom}"):
             selected_symptom = symptom
 
-# 약 추천 (가로 2열)
+# 약 추천 (가로 2열, 이모티콘 포함)
 if selected_symptom:
     st.subheader(f"🩺 선택한 증상: {selected_symptom}")
     st.write("**추천 약품:**")
@@ -89,17 +89,17 @@ if selected_symptom:
         with cols[idx]:
             st.markdown(f"""
                 <div style="
-                    background-color: #BBDCE5;  /* 라이트 블루 카드 */
+                    background-color: #BBDCE5;
                     padding: 20px;
                     border-radius: 15px;
-                    box-shadow: 4px 4px 12px #F5F0E1;  /* 베이지 그림자 */
+                    box-shadow: 4px 4px 12px #F5F0E1;
                     text-align: center;
                     margin-bottom: 15px;
                     color: #333333;
                 ">
-                    <h3>{med['이름']}</h3>
-                    <p><strong>복용법:</strong> {med['복용법']}</p>
-                    <p><strong>효능:</strong> {med['효능']}</p>
-                    <p><strong>주의사항:</strong> {med['주의사항']}</p>
+                    <h3>💊 {med['이름']}</h3>
+                    <p>⏰ <strong>복용법:</strong> {med['복용법']}</p>
+                    <p>🌿 <strong>효능:</strong> {med['효능']}</p>
+                    <p>⚠️ <strong>주의사항:</strong> {med['주의사항']}</p>
                 </div>
             """, unsafe_allow_html=True)
