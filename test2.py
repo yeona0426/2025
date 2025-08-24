@@ -48,10 +48,8 @@ st.markdown("""
 html, body, .stApp {
     background-color: #F5F0E1;  /* 전체 페이지 베이지 */
 }
-</style>
-""", unsafe_allow_html=True)
 div.stButton > button:first-child {
-    background-color: #BBDCE5;  /* 카드 & 버튼 라이트블루 */
+    background-color: #BBDCE5;  /* 버튼 & 카드 동일 색상 */
     color: #333333;
     font-weight: bold;
     border-radius: 12px;
@@ -83,7 +81,7 @@ for idx, (symptom, url) in enumerate(image_urls.items()):
         if st.button(f"{symptom}"):
             selected_symptom = symptom
 
-# 약 추천 (가로 2열, 동일 색상)
+# 약 추천 (가로 2열, 카드 동일 색상)
 if selected_symptom:
     st.subheader(f"🩺 선택한 증상: {selected_symptom}")
     st.write("**추천 약품:**")
