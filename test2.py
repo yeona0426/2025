@@ -42,14 +42,14 @@ image_urls = {
 # ------------------------------
 st.set_page_config(page_title="증상별 소화제 추천 앱", layout="wide")
 
-# 전체 배경색 적용
+# 전체 배경색 + 버튼 스타일
 st.markdown("""
 <style>
 body {
-    background-color: #ECEEDF;
+    background-color: #ECECEC;
 }
 div.stButton > button:first-child {
-    background-color: #D9C4B0;
+    background-color: #F7F4EA;  /* 크림 강조 */
     color: #333333;
     font-weight: bold;
     border-radius: 12px;
@@ -66,38 +66,36 @@ st.markdown("""
 
 # ⚠️ 경고 문구
 st.markdown("""
-<div style='background-color:#CFAB8D; color:#333333; padding:15px; border-radius:10px; text-align:center;'>
+<div style='background-color:#C6E2E9; color:#333333; padding:15px; border-radius:10px; text-align:center;'>
 ⚠️ 주의: 이 앱은 일반적인 정보 제공용입니다. 약 복용 전 반드시 약사 또는 의사와 상담하세요.
 </div>
 """, unsafe_allow_html=True)
 
-# 이미지 5개 한 줄로 배치
+# 이미지 선택
 cols = st.columns(5)
 selected_symptom = None
-
 for idx, (symptom, url) in enumerate(image_urls.items()):
     with cols[idx]:
         st.image(url, use_container_width=True)
         if st.button(f"{symptom}"):
             selected_symptom = symptom
 
-# 선택된 증상에 따른 약 추천 (가로 2열, 베이지 카드)
+# 약 추천 (가로 2열)
 if selected_symptom:
     st.subheader(f"🩺 선택한 증상: {selected_symptom}")
     st.write("**추천 약품:**")
-    
     cols = st.columns(2)
     for idx, med in enumerate(medicine_data[selected_symptom]):
         with cols[idx]:
             st.markdown(f"""
                 <div style="
-                    background-color: #CFAB8D;  /* 카드 베이지 */
+                    background-color: #C6E2E9;  /* 민트 카드 */
                     padding: 20px;
                     border-radius: 15px;
-                    box-shadow: 4px 4px 12px #D9C4B0;
+                    box-shadow: 4px 4px 12px #F7F4EA;
                     text-align: center;
                     margin-bottom: 15px;
-                    color: #333333;  /* 무채색 텍스트 */
+                    color: #333333;
                 ">
                     <h3>{med['이름']}</h3>
                     <p><strong>복용법:</strong> {med['복용법']}</p>
