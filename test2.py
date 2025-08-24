@@ -41,12 +41,35 @@ image_urls = {
 # Streamlit 화면
 # ------------------------------
 st.set_page_config(page_title="증상별 소화제 추천 앱", layout="wide")
-st.title("💊 증상별 소화제 추천 앱")
+
+# 전체 배경색 적용
+st.markdown("""
+<style>
+body {
+    background-color: #ECEEDF;
+}
+div.stButton > button:first-child {
+    background-color: #D9C4B0;
+    color: #333333;
+    font-weight: bold;
+    border-radius: 12px;
+    padding: 10px 20px;
+}
+</style>
+""", unsafe_allow_html=True)
+
+# 앱 제목
+st.markdown("""
+<h1 style='text-align:center; color:#333333; font-family:Arial Black;'>💊 증상별 소화제 추천 앱</h1>
+<p style='text-align:center; color:#555555;'>증상을 클릭하면 알맞은 약을 추천해드립니다.</p>
+""", unsafe_allow_html=True)
 
 # ⚠️ 경고 문구
-st.warning("⚠️ 주의: 이 앱은 일반적인 정보 제공용입니다. \n약 복용 전 반드시 약사 또는 의사와 상담하세요.")
-
-st.write("증상을 클릭하면 알맞은 약을 추천해드립니다.")
+st.markdown("""
+<div style='background-color:#CFAB8D; color:#333333; padding:15px; border-radius:10px; text-align:center;'>
+⚠️ 주의: 이 앱은 일반적인 정보 제공용입니다. 약 복용 전 반드시 약사 또는 의사와 상담하세요.
+</div>
+""", unsafe_allow_html=True)
 
 # 이미지 5개 한 줄로 배치
 cols = st.columns(5)
@@ -68,10 +91,10 @@ if selected_symptom:
         with cols[idx]:
             st.markdown(f"""
                 <div style="
-                    background-color: #F5F0E1;  /* 베이지 배경 */
+                    background-color: #CFAB8D;  /* 카드 베이지 */
                     padding: 20px;
                     border-radius: 15px;
-                    box-shadow: 4px 4px 12px rgba(0,0,0,0.2);
+                    box-shadow: 4px 4px 12px #D9C4B0;
                     text-align: center;
                     margin-bottom: 15px;
                     color: #333333;  /* 무채색 텍스트 */
