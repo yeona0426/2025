@@ -24,19 +24,17 @@ medicine_data = {
     }
 }
 
-# Google Drive 이미지 URL
+# 이미지 URL
 image_urls = {
-    "속쓰림 / 위산 역류": "https://drive.google.com/uc?export=view&id=1t7aDDT3v7iUUutofjsLFwWPKvAqrOHF9",
-    "더부룩함 / 소화불량": "https://drive.google.com/uc?export=view&id=1OBrwdZAEWPlueKWp1nAzfb5UOuM5HN81",
-    "과식 후 체함": "https://drive.google.com/uc?export=view&id=1tWlktmeXJIQ1n9K-avp-OluyX68JtIJv",
-    "가스참 / 트림 / 방귀 과다": "https://drive.google.com/uc?export=view&id=16no-TXUNhju1HJ_XJkpqGi1KptBmOGUs",
-    "메스꺼움 / 구역질": "https://drive.google.com/uc?export=view&id=1PjI8pPuDTnbnhQhQVgSIM9p8lhp3IhUo"
+    "속쓰림 / 위산 역류": "https://github.com/yeona0426/image/raw/main/acid.PNG",
+    "더부룩함 / 소화불량": "https://github.com/yeona0426/image/raw/main/stom.PNG",
+    "과식 후 체함": "https://github.com/yeona0426/image/raw/main/eat.PNG",
+    "가스참 / 트림 / 방귀 과다": "https://github.com/yeona0426/image/raw/main/gas.PNG",
+    "메스꺼움 / 구역질": "https://github.com/yeona0426/image/raw/main/to.PNG"
 }
 
-
-# 앱 제목
 st.title("💊 증상별 소화제 추천 앱")
-st.write("아래 증상 이미지를 클릭하면 알맞은 약을 추천해드립니다.")
+st.write("아래 이미지 중 하나를 클릭하면 알맞은 약을 추천해드립니다.")
 
 # 한 줄에 이미지 5개 배치
 cols = st.columns(5)
@@ -44,9 +42,9 @@ selected_symptom = None
 
 for idx, (symptom, url) in enumerate(image_urls.items()):
     with cols[idx]:
-        if st.button(f"🖼️ {symptom}", key=symptom):
-            selected_symptom = symptom
         st.image(url, caption=symptom, use_container_width=True)
+        if st.button(f"{symptom} 선택"):
+            selected_symptom = symptom
 
 # 선택된 증상에 따른 약 추천
 if selected_symptom:
