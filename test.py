@@ -24,17 +24,18 @@ medicine_data = {
     }
 }
 
-# 실제 이미지 URL
+# Google Drive 이미지 URL
 image_urls = {
-    "속쓰림 / 위산 역류": "https://postimg.cc/75czw8CW",
-    "더부룩함 / 소화불량": "https://cdn-icons-png.flaticon.com/512/1143/11430843.png",
-    "과식 후 체함": "https://cdn-icons-png.flaticon.com/512/995/9958185.png",
-    "가스참 / 트림 / 방귀 과다": "https://cdn-icons-png.flaticon.com/512/993/9930189.png",
-    "메스꺼움 / 구역질": "https://cdn-icons-png.flaticon.com/512/1003/10039255.png"
+    "속쓰림 / 위산 역류": "https://drive.google.com/uc?export=view&id=1t7aDDT3v7iUUutofjsLFwWPKvAqrOHF9",
+    "더부룩함 / 소화불량": "https://drive.google.com/uc?export=view&id=1OBrwdZAEWPlueKWp1nAzfb5UOuM5HN81",
+    "과식 후 체함": "https://drive.google.com/uc?export=view&id=1tWlktmeXJIQ1n9K-avp-OluyX68JtIJv",
+    "가스참 / 트림 / 방귀 과다": "https://drive.google.com/uc?export=view&id=16no-TXUNhju1HJ_XJkpqGi1KptBmOGUs",
+    "메스꺼움 / 구역질": "https://drive.google.com/uc?export=view&id=1PjI8pPuDTnbnhQhQVgSIM9p8lhp3IhUo"
 }
 
+# 앱 제목
 st.title("💊 증상별 소화제 추천 앱")
-st.write("아래 이미지 중 하나를 클릭하면 알맞은 약을 추천해드립니다.")
+st.write("아래 증상 이미지를 클릭하면 알맞은 약을 추천해드립니다.")
 
 # 한 줄에 이미지 5개 배치
 cols = st.columns(5)
@@ -42,9 +43,9 @@ selected_symptom = None
 
 for idx, (symptom, url) in enumerate(image_urls.items()):
     with cols[idx]:
-        st.image(url, caption=symptom, use_container_width=True)
-        if st.button(f"{symptom} 선택"):
+        if st.button(f"🖼️ {symptom}", key=symptom):
             selected_symptom = symptom
+        st.image(url, caption=symptom, use_container_width=True)
 
 # 선택된 증상에 따른 약 추천
 if selected_symptom:
