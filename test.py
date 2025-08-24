@@ -42,7 +42,7 @@ image_urls = {
 # ------------------------------
 st.set_page_config(page_title="증상별 소화제 추천 앱", layout="wide")
 st.title("💊 증상별 소화제 추천 앱")
-st.write("아래 이미지 중 하나를 클릭하면 알맞은 약을 추천해드립니다.")
+st.write("증상을 클릭하면 알맞은 약을 추천해드립니다.")
 
 # 이미지 5개 한 줄로 배치
 cols = st.columns(5)
@@ -51,7 +51,7 @@ selected_symptom = None
 for idx, (symptom, url) in enumerate(image_urls.items()):
     with cols[idx]:
         st.image(url, caption=symptom, use_container_width=True)
-        if st.button(f"{symptom} 선택"):
+        if st.button(f"{symptom}"):
             selected_symptom = symptom
 
 # 선택된 증상에 따른 약 추천
