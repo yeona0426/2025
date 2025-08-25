@@ -1,107 +1,115 @@
 import streamlit as st
 
 # ------------------------------
-# 증상별 추천 약 정보
+# 페이지 기본 설정
+# ------------------------------
+st.set_page_config(page_title="💊 소화제 추천 앱", layout="wide")
+
+# ------------------------------
+# CSS 스타일 (배경/카드 꾸미기)
+# ------------------------------
+page_style = """
+<style>
+/* 전체 배경 */
+.stApp {
+    background-color: #FAF3E0; /* 베이지 톤 */
+}
+
+/* 카드 스타일 */
+.card {
+    background-color: #D6EAF8; /* 파스텔 블루 */
+    padding: 20px;
+    border-radius: 16px;
+    box-shadow: 2px 2px 10px rgba(0,0,0,0.1);
+    margin: 10px;
+}
+.card h3 {
+    margin-top: 0;
+}
+</style>
+"""
+st.markdown(page_style, unsafe_allow_html=True)
+
+# ------------------------------
+# 데이터
 # ------------------------------
 medicine_data = {
     "속쓰림 / 위산 역류": [
-        {"이름": "겔포스", "복용법": "식사 후 1~2정", "효능": "위산 중화, 속쓰림 완화", "주의사항": "신장질환 환자는 사용 전 의사 상담"},
-        {"이름": "알마겔", "복용법": "식사 후 2~3정", "효능": "위산 중화, 위염 완화", "주의사항": "장기간 사용 시 변비 유발 가능"}
+        {"이름": "겔포스", "설명": "위산 과다 및 속쓰림 완화. 알루미늄/마그네슘 성분의 제산제."},
+        {"이름": "오메프라졸", "설명": "위산 분비 억제제. 위식도 역류질환에 사용."}
     ],
     "더부룩함 / 소화불량": [
-        {"이름": "훼스탈", "복용법": "식사 직후 1~2정", "효능": "소화 효소 보충, 소화불량 완화", "주의사항": "췌장질환 환자는 사용 전 의사 상담"},
-        {"이름": "베아제", "복용법": "식사 직후 1~2정", "효능": "소화불량 개선", "주의사항": "특정 음식 알레르기 확인 필요"}
+        {"이름": "차마다이제", "설명": "소화 효소 + 생약 성분. 소화불량, 식후 더부룩함 완화."},
+        {"이름": "훼스탈", "설명": "지방, 탄수화물 분해효소 포함. 과식/기름진 음식 소화에 도움."}
     ],
     "과식 후 체함": [
-        {"이름": "활명수", "복용법": "식사 후 10ml", "효능": "소화 촉진, 체한 증상 완화", "주의사항": "카페인 민감자는 주의"},
-        {"이름": "훼스탈", "복용법": "식사 직후 1~2정", "효능": "과식 후 소화불량 완화", "주의사항": "췌장질환 환자는 사용 전 의사 상담"}
+        {"이름": "차마다이제", "설명": "체한 느낌, 소화 촉진에 도움."},
+        {"이름": "훼스탈", "설명": "과식으로 인한 소화불량 완화."}
     ],
     "가스참 / 트림 / 방귀 과다": [
-        {"이름": "가스활명수", "복용법": "식사 후 10ml", "효능": "트림, 방귀 과다 완화", "주의사항": "심한 복통 시 사용 금지"},
-        {"이름": "차마다이제", "복용법": "식사 직후 1~2정", "효능": "복부 팽만 및 가스 제거", "주의사항": "심한 복통 시 사용 금지"}
+        {"이름": "가스칼", "설명": "위장 내 가스 제거, 더부룩함 개선."},
+        {"이름": "베나치오", "설명": "가스팽만, 복부 불쾌감 완화."}
     ],
     "메스꺼움 / 구역질": [
-        {"이름": "위청수", "복용법": "식사 후 10ml", "효능": "메스꺼움 완화, 소화 촉진", "주의사항": "알코올 섭취 주의"},
-        {"이름": "활명수", "복용법": "식사 후 10ml", "효능": "구역질 완화, 소화 촉진", "주의사항": "카페인 민감자 주의"}
+        {"이름": "베나치오", "설명": "소화불량 동반 구역, 오심 완화."},
+        {"이름": "겔포스", "설명": "위산 과다로 인한 메스꺼움 완화."}
     ]
 }
 
 # ------------------------------
-# 증상별 이미지 (GitHub raw 링크)
-# ------------------------------
-image_urls = {
-    "속쓰림 / 위산 역류": "https://github.com/yeona0426/image/raw/main/acid.PNG",
-    "더부룩함 / 소화불량": "https://github.com/yeona0426/image/raw/main/stom.PNG",
-    "과식 후 체함": "https://github.com/yeona0426/image/raw/main/eat.PNG",
-    "가스참 / 트림 / 방귀 과다": "https://github.com/yeona0426/image/raw/main/gas.PNG",
-    "메스꺼움 / 구역질": "https://github.com/yeona0426/image/raw/main/to.PNG"
-}
-
-# ------------------------------
-# Streamlit 화면
-# ------------------------------
-st.set_page_config(page_title="증상별 소화제 추천 앱", layout="wide")
-
-# 전체 페이지 배경 & 버튼/카드 스타일
-st.markdown("""
-<style>
-html, body, .stApp {
-    background-color: #F5F0E1;  /* 전체 페이지 베이지 */
-}
-div.stButton > button:first-child {
-    background-color: #BBDCE5;  /* 버튼 & 카드 동일 색상 */
-    color: #333333;
-    font-weight: bold;
-    border-radius: 12px;
-    padding: 10px 20px;
-    margin-bottom: 10px;
-}
-</style>
-""", unsafe_allow_html=True)
-
 # 앱 제목
-st.markdown("""
-<h1 style='text-align:center; color:#333333; font-family:Arial Black;'>💊 증상별 소화제 추천 앱</h1>
-<p style='text-align:center; color:#555555;'>증상을 클릭하면 알맞은 약을 추천해드립니다.</p>
-""", unsafe_allow_html=True)
+# ------------------------------
+st.markdown("<h1 style='text-align: center; color: #333;'>💊 소화제 추천 앱</h1>", unsafe_allow_html=True)
 
-# ⚠️ 경고 문구
-st.markdown("""
-<div style='background-color:#BBDCE5; color:#333333; padding:15px; border-radius:10px; text-align:center;'>
-⚠️ 주의: 이 앱은 일반적인 정보 제공용입니다. 약 복용 전 반드시 약사 또는 의사와 상담하세요.
-</div>
-""", unsafe_allow_html=True)
+# ------------------------------
+# 선택
+# ------------------------------
+symptom = st.selectbox("증상을 선택하세요 👇", list(medicine_data.keys()))
 
-# 이미지 선택
-cols = st.columns(5)
-selected_symptom = None
-for idx, (symptom, url) in enumerate(image_urls.items()):
+# ------------------------------
+# 결과 출력 (카드 형태, 가로 정렬)
+# ------------------------------
+st.subheader(f"👉 '{symptom}' 증상에 추천되는 약")
+cols = st.columns(2)
+
+for idx, med in enumerate(medicine_data[symptom]):
     with cols[idx]:
-        st.image(url, use_container_width=True)
-        if st.button(f"{symptom}"):
-            selected_symptom = symptom
+        st.markdown(f"""
+        <div class="card">
+            <h3>{med['이름']} 💊</h3>
+            <p>{med['설명']}</p>
+        </div>
+        """, unsafe_allow_html=True)
 
-# 약 추천 (가로 2열, 카드 동일 색상)
-if selected_symptom:
-    st.subheader(f"🩺 선택한 증상: {selected_symptom}")
-    st.write("**추천 약품:**")
-    cols = st.columns(2)
-    card_color = "#BBDCE5"  # 모든 카드 동일 색상
-    for idx, med in enumerate(medicine_data[selected_symptom]):
-        with cols[idx]:
-            st.markdown(f"""
-                <div style="
-                    background-color: {card_color};
-                    padding: 20px;
-                    border-radius: 15px;
-                    box-shadow: 4px 4px 12px #ECEEDF;
-                    text-align: center;
-                    margin-bottom: 15px;
-                    color: #333333;
-                ">
-                    <h3>💊 {med['이름']}</h3>
-                    <p>⏰ <strong>복용법:</strong> {med['복용법']}</p>
-                    <p>🌿 <strong>효능:</strong> {med['효능']}</p>
-                    <p>⚠️ <strong>주의사항:</strong> {med['주의사항']}</p>
-                </div>
-            """, unsafe_allow_html=True)
+# ------------------------------
+# 경고 문구
+# ------------------------------
+st.markdown("""
+⚠️ **주의:** 이 앱은 일반적인 정보 제공용입니다.  
+약 복용 전 반드시 약사 또는 의사와 상담하세요.  
+""")
+
+# ------------------------------
+# 💊 알약 떨어지는 효과 버튼
+# ------------------------------
+if st.button("💊 알약 떨어뜨리기!"):
+    pill_rain = """
+    <style>
+    @keyframes pillFall {
+        0% { transform: translateY(-10vh); opacity: 1; }
+        100% { transform: translateY(100vh); opacity: 0; }
+    }
+    .pill {
+        position: fixed;
+        top: 0;
+        font-size: 30px;
+        animation: pillFall 3s linear infinite;
+    }
+    </style>
+    <div class="pill" style="left:10%;">💊</div>
+    <div class="pill" style="left:30%;">💊</div>
+    <div class="pill" style="left:50%;">💊</div>
+    <div class="pill" style="left:70%;">💊</div>
+    <div class="pill" style="left:90%;">💊</div>
+    """
+    st.markdown(pill_rain, unsafe_allow_html=True)
