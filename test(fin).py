@@ -42,19 +42,32 @@ image_urls = {
 # ------------------------------
 st.set_page_config(page_title="증상별 소화제 추천 앱", layout="wide")
 
-# 전체 페이지 배경 & 버튼/카드 스타일
+# 전체 스타일 (배경, 버튼, 카드, 애니메이션)
 st.markdown("""
 <style>
 html, body, .stApp {
     background-color: #F5F0E1;  /* 전체 페이지 베이지 */
 }
 div.stButton > button:first-child {
-    background-color: #BBDCE5;  /* 버튼 & 카드 동일 색상 */
+    background-color: #BBDCE5;  /* 버튼 색상 */
     color: #333333;
     font-weight: bold;
     border-radius: 12px;
     padding: 10px 20px;
     margin-bottom: 10px;
+    transition: all 0.2s ease-in-out;
+}
+div.stButton > button:first-child:hover {
+    transform: scale(1.05);
+}
+
+/* 카드 애니메이션 */
+@keyframes fadeIn {
+    from {opacity: 0; transform: translateY(20px);}
+    to {opacity: 1; transform: translateY(0);}
+}
+.fade-card {
+    animation: fadeIn 0.8s ease-in-out;
 }
 </style>
 """, unsafe_allow_html=True)
@@ -91,7 +104,7 @@ if selected_symptom:
     for idx, med in enumerate(medicine_data[selected_symptom]):
         with cols[idx]:
             st.markdown(f"""
-                <div style="
+                <div class="fade-card" style="
                     background-color: {card_color};
                     padding: 20px;
                     border-radius: 15px;
@@ -99,18 +112,10 @@ if selected_symptom:
                     text-align: center;
                     margin-bottom: 15px;
                     color: #333333;
-                    animation: fadeIn 1s ease-in-out;
                 ">
                     <h3>💊 {med['이름']}</h3>
                     <p>⏰ <strong>복용법:</strong> {med['복용법']}</p>
                     <p>🌿 <strong>효능:</strong> {med['효능']}</p>
                     <p>⚠️ <strong>주의사항:</strong> {med['주의사항']}</p>
                 </div>
-
-                <style>
-                @keyframes fadeIn {{
-                    from {{opacity: 0; transform: translateY(20px);}}
-                    to {{opacity: 1; transform: translateY(0);}}
-                }}
-                </style>
             """, unsafe_allow_html=True)
