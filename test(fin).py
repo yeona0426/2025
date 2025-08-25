@@ -62,13 +62,15 @@ div.stButton > button:first-child:hover {
 }
 
 /* 카드 애니메이션 */
+.fade-card {
+    opacity: 0;  /* 처음에 안 보이게 */
+    animation: fadeIn 0.8s ease-in-out forwards;  /* 끝난 후 상태 유지 */
+}
 @keyframes fadeIn {
     from {opacity: 0; transform: translateY(20px);}
     to {opacity: 1; transform: translateY(0);}
 }
-.fade-card {
-    animation: fadeIn 0.8s ease-in-out;
-}
+
 </style>
 """, unsafe_allow_html=True)
 
