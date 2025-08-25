@@ -42,35 +42,20 @@ image_urls = {
 # ------------------------------
 st.set_page_config(page_title="증상별 소화제 추천 앱", layout="wide")
 
-# 전체 스타일 (배경, 버튼, 카드, 애니메이션)
+# 전체 페이지 배경 & 버튼/카드 스타일
 st.markdown("""
 <style>
 html, body, .stApp {
     background-color: #F5F0E1;  /* 전체 페이지 베이지 */
 }
 div.stButton > button:first-child {
-    background-color: #BBDCE5;  /* 버튼 색상 */
+    background-color: #BBDCE5;  /* 버튼 & 카드 동일 색상 */
     color: #333333;
     font-weight: bold;
     border-radius: 12px;
     padding: 10px 20px;
     margin-bottom: 10px;
-    transition: all 0.2s ease-in-out;
 }
-div.stButton > button:first-child:hover {
-    transform: scale(1.05);
-}
-
-/* 카드 애니메이션 */
-.fade-card {
-    opacity: 0;  /* 처음에 안 보이게 */
-    animation: fadeIn 0.8s ease-in-out forwards;  /* 끝난 후 상태 유지 */
-}
-@keyframes fadeIn {
-    from {opacity: 0; transform: translateY(20px);}
-    to {opacity: 1; transform: translateY(0);}
-}
-
 </style>
 """, unsafe_allow_html=True)
 
@@ -96,17 +81,16 @@ for idx, (symptom, url) in enumerate(image_urls.items()):
         if st.button(f"{symptom}"):
             selected_symptom = symptom
 
-# 약 추천 (가로 2열, 카드 페이드인 효과)
+# 약 추천 (가로 2열, 카드 동일 색상)
 if selected_symptom:
     st.subheader(f"🩺 선택한 증상: {selected_symptom}")
     st.write("**추천 약품:**")
     cols = st.columns(2)
-    card_color = "#BBDCE5"
-
+    card_color = "#BBDCE5"  # 모든 카드 동일 색상
     for idx, med in enumerate(medicine_data[selected_symptom]):
         with cols[idx]:
             st.markdown(f"""
-                <div class="fade-card" style="
+                <div style="
                     background-color: {card_color};
                     padding: 20px;
                     border-radius: 15px;
